@@ -7,7 +7,7 @@
 
 ## 📌 Project Overview
 
-This project focuses on developing a machine learning classifier to accurately detect phishing URLs. Leveraging the **PhiUSIIL Phishing URL Dataset**, we preprocess a rich set of features—from URL length to domain characteristics—to create a model that can serve as a critical component of a web security system.  
+This project focuses on developing a machine learning classifier to accurately detect phishing URLs. Leveraging the **Phishing URL Dataset**, we preprocess a rich set of features—from URL length to domain characteristics—to create a model that can serve as a critical component of a web security system.  
 
 The primary objective is to build a reliable, automated tool that identifies online threats in real-time.
 
