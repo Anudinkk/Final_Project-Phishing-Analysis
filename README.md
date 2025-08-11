@@ -73,11 +73,79 @@ The following columns were removed due to low predictive value or complexity:
 - Performed an **80/20 split** with `stratify=y`.
 - Ensured balanced distribution of phishing vs. legitimate URLs across both sets.
 
+
+
+## 🚀 Stage 3: Model Building
+The following classifiers were trained:
+1. **Logistic Regression** – Linear baseline  
+2. **Decision Tree Classifier** – Non-linear, interpretable model  
+3. **Random Forest Classifier** – Ensemble of decision trees  
+4. **Support Vector Machine (SVM)** – Optimal separating hyperplane  
+5. **K-Nearest Neighbors (k-NN)** – Distance-based classification  
+6. **Gradient Boosting Classifier** – Sequential boosting of weak learners  
+
+---
+
+## ⚙️ Stage 4: Hyperparameter Tuning
+**Tool:** `GridSearchCV`  
+
+### Tuned Models:
+- Decision Tree
+- Random Forest
+- Gradient Boosting
+
+### Example: Gradient Boosting Parameters Tuned:
+- `n_estimators`
+- `learning_rate`
+- `max_depth`
+- `subsample`
+
+**Benefits of Tuning:**
+- Maximized accuracy
+- Reduced overfitting
+- Automated best-parameter search
+
+---
+
+## 📊 Stage 5: Evaluation Metrics
+- **Accuracy** – Overall correct predictions  
+- **Classification Report** – Precision, recall, F1-score per class  
+- **Confusion Matrix** – Breakdown of prediction outcomes  
+
+---
+
+## 📈 Stage 6: Model Performance Results
+| Model Name                  | Accuracy   |
+|-----------------------------|------------|
+| **Random Forest Classifier**| **0.999958** |
+| Decision Tree Classifier    | 0.999894   |
+| Logistic Regression         | 0.999576   |
+| K-Nearest Neighbors         | 0.997010   |
+| Support Vector Machine (SVM)| 0.997010   |
+
+---
+
+## 🏆 Stage 7: Conclusion
+Based on the evaluation, the **Random Forest Classifier** achieved the **highest accuracy (0.999958)**, indicating it is the most effective model for this dataset.  
+Key reasons for its performance:
+- Ability to handle both numerical and categorical features
+- Robustness against overfitting due to ensemble averaging
+- High interpretability via feature importance
+
+**Final Decision:**  
+The **Random Forest Classifier** is selected as the final model for phishing URL detection.  
+It will be saved and integrated into a security pipeline for **real-time threat detection**.
+
+---
+
+## 🛠 Tech Stack
+- **Language**: Python  
+- **Libraries**: scikit-learn, pandas, numpy, matplotlib, seaborn, scikit-learn  
+- **Tools**: Jupyter Notebook
 ---
 
 ## ✅ Current Project Status
 
-- ✔ **Data preprocessing complete**
-- ⏳ **Ready for Stage 3: Machine Learning Modeling & Evaluation**
+- ✔ **Model Prediction completed**
 
 ---
