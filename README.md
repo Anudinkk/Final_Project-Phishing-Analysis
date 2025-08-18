@@ -1,151 +1,159 @@
-# 🛡️ Phishing URL Detection Analysis
+🛡️ Phishing URL Detection Analysis
+A Machine Learning Approach to Phishing URL Detection
 
-### A Machine Learning Approach to Phishing URL Detection  
-**"Building a robust classification model to proactively identify and neutralize malicious phishing URLs using textual and domain-based features."**
+Building a robust classification model to proactively identify and neutralize malicious phishing URLs using textual and domain-based features.
 
----
-
-## 📌 Project Overview
-
-This project focuses on developing a machine learning classifier to accurately detect phishing URLs. Leveraging the **Phishing URL Dataset**, we preprocess a rich set of features—from URL length to domain characteristics—to create a model that can serve as a critical component of a web security system.  
+📌 Project Overview
+This project focuses on developing a machine learning classifier to accurately detect phishing URLs. Leveraging the Phishing URL Dataset, we preprocess a rich set of features—from URL length to domain characteristics—to create a model that can serve as a critical component of a web security system.
 
 The primary objective is to build a reliable, automated tool that identifies online threats in real-time.
 
----
+🎯 Objectives
+ Preprocess the real-world PhiUSIIL dataset
 
-## 🎯 Objectives
+ Drop irrelevant and high-cardinality string features
 
-- Preprocess the real-world **PhiUSIIL** dataset.
-- Drop irrelevant and high-cardinality string features.
-- Handle high-cardinality categorical features such as **TLD** efficiently.
-- Apply **one-hot encoding** and **feature scaling**.
-- Split the data using a **stratified train/test split**.
-- Prepare a clean dataset for machine learning modeling.
+ Handle high-cardinality categorical features such as TLD efficiently
 
----
+ Apply one-hot encoding and feature scaling
 
-## 📁 Dataset
+ Split the data using a stratified train/test split
 
-- **Source**: [UCI Machine Learning Repository](https://archive.ics.uci.edu/)
-- **Name**: PhiUSIIL Phishing URL Dataset  
-- **Task**: Binary Classification  
-  - `0` = Phishing  
-  - `1` = Legitimate
+ Prepare a clean dataset for machine learning modeling
 
----
+📁 Dataset
+Source: UCI Machine Learning Repository
 
-## 🔧 Stage 1: Data Collection & Exploration
+Name: PhiUSIIL Phishing URL Dataset
 
-- ✅ **Data Loading**: Imported directly using the `ucimlrepo` library.
-- ✅ **Initial Inspection**: Reviewed structure, columns, data types, and target label distribution.
-- ✅ **Column Review**: Evaluated all 52 features for relevance and datatype.
+Task: Binary Classification
 
----
+0 = Phishing
 
-## 🧼 Stage 2: Preprocessing & Feature Engineering
+1 = Legitimate
 
-### 🔹 Dropping Irrelevant Columns
+🔧 Stage 1: Data Collection & Exploration
+✅ Data Loading: Imported directly using the ucimlrepo library
+
+✅ Initial Inspection: Reviewed structure, columns, data types, and target label distribution
+
+✅ Column Review: Evaluated all 52 features for relevance and datatype
+
+🧼 Stage 2: Preprocessing & Feature Engineering
+🔹 Dropping Irrelevant Columns
 The following columns were removed due to low predictive value or complexity:
-- `FILENAME` – File identifier.
-- `URL`, `Domain` – High-cardinality strings; information already captured in engineered features.
-- `Title` – Unstructured text; excluded to maintain project scope.
 
-### 🔹 Handling High-Cardinality Categorical Feature: `TLD`
+FILENAME – File identifier
 
-- `TLD` had **695 unique values**.
-- Strategy:
-  - Calculate frequency for each TLD.
-  - Group TLDs with frequency < 10 as `"Other"`.
-- ✅ Reduced dimensionality while preserving signal.
+URL, Domain – High-cardinality strings; information already captured in engineered features
 
-### 🔹 Categorical Encoding
+Title – Unstructured text; excluded to maintain project scope
 
-- Applied **one-hot encoding** to the modified `TLD` column.
-- Used `drop_first=True` to avoid multicollinearity.
+🔹 Handling High-Cardinality Categorical Feature: TLD
+Challenge: TLD had 695 unique values
 
-### 🔹 Feature Scaling
+Strategy:
 
-- Used `StandardScaler` to scale all numerical features.
-- Scaler fitted **only on training data** to prevent data leakage.
+Calculate frequency for each TLD
 
-### 🔹 Train/Test Split
+Group TLDs with frequency < 10 as "Other"
 
-- Performed an **80/20 split** with `stratify=y`.
-- Ensured balanced distribution of phishing vs. legitimate URLs across both sets.
+✅ Result: Reduced dimensionality while preserving signal
 
+🔹 Categorical Encoding
+Applied one-hot encoding to the modified TLD column
 
+Used drop_first=True to avoid multicollinearity
 
-## 🚀 Stage 3: Model Building
+🔹 Feature Scaling
+Used StandardScaler to scale all numerical features
+
+Scaler fitted only on training data to prevent data leakage
+
+🔹 Train/Test Split
+Performed an 80/20 split with stratify=y
+
+Ensured balanced distribution of phishing vs. legitimate URLs across both sets
+
+🚀 Stage 3: Model Building
 The following classifiers were trained:
-1. **Logistic Regression** – Linear baseline  
-2. **Decision Tree Classifier** – Non-linear, interpretable model  
-3. **Random Forest Classifier** – Ensemble of decision trees  
-4. **Support Vector Machine (SVM)** – Optimal separating hyperplane  
-5. **K-Nearest Neighbors (k-NN)** – Distance-based classification  
-6. **Gradient Boosting Classifier** – Sequential boosting of weak learners  
 
----
+Logistic Regression – Linear baseline
 
-## ⚙️ Stage 4: Hyperparameter Tuning
-**Tool:** `GridSearchCV`  
+Decision Tree Classifier – Non-linear, interpretable model
 
-### Tuned Models:
-- Decision Tree
-- Random Forest
-- Gradient Boosting
+Random Forest Classifier – Ensemble of decision trees
 
-### Example: Gradient Boosting Parameters Tuned:
-- `n_estimators`
-- `learning_rate`
-- `max_depth`
-- `subsample`
+Support Vector Machine (SVM) – Optimal separating hyperplane
 
-**Benefits of Tuning:**
-- Maximized accuracy
-- Reduced overfitting
-- Automated best-parameter search
+K-Nearest Neighbors (k-NN) – Distance-based classification
 
----
+Gradient Boosting Classifier – Sequential boosting of weak learners
 
-## 📊 Stage 5: Evaluation Metrics
-- **Accuracy** – Overall correct predictions  
-- **Classification Report** – Precision, recall, F1-score per class  
-- **Confusion Matrix** – Breakdown of prediction outcomes  
+⚙️ Stage 4: Hyperparameter Tuning
+Tool: RandomizedSearchCV
 
----
+🏆 Best Model: Random Forest Tuning Results
+Total Fits: 5 folds for each of 20 candidates, totaling 100 fits
 
-## 📈 Stage 6: Model Performance Results
-| Model Name                  | Accuracy   |
-|-----------------------------|------------|
-| **Random Forest Classifier**| **0.999958** |
-| Decision Tree Classifier    | 0.999894   |
-| Logistic Regression         | 0.999576   |
-| K-Nearest Neighbors         | 0.997010   |
-| Support Vector Machine (SVM)| 0.997010   |
+Best Cross-Validated Accuracy: 0.9999
 
----
+Best Parameters Found: [Optimized hyperparameters stored in model]
 
-## 🏆 Stage 7: Conclusion
-Based on the evaluation, the **Random Forest Classifier** achieved the **highest accuracy (0.999958)**, indicating it is the most effective model for this dataset.  
+📊 Stage 5: Evaluation Metrics
+Accuracy – Overall correct predictions
+
+Classification Report – Precision, recall, F1-score per class
+
+Confusion Matrix – Breakdown of prediction outcomes
+
+📈 Stage 6: Model Performance Results
+Model Comparison
+Model Name	Accuracy
+Random Forest Classifier	0.999915
+Decision Tree Classifier	0.999894
+Logistic Regression	0.999576
+K-Nearest Neighbors	0.997010
+Support Vector Machine (SVM)	0.997010
+🔍 Final Model Deep Dive: Random Forest
+After tuning, the Random Forest model was evaluated on the test set:
+
+Accuracy: 0.9999151805593842
+
+Classification Report
+text
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00     23464
+           1       1.00      1.00      1.00     23464
+
+    accuracy                           1.00     46928
+   macro avg       1.00      1.00      1.00     46928
+weighted avg       1.00      1.00      1.00     46928
+Confusion Matrix
+The model misclassified only 4 legitimate URLs as phishing and made zero errors in identifying actual phishing URLs.
+
+🏆 Stage 7: Conclusion
+Based on the evaluation, the Random Forest Classifier achieved the highest accuracy (0.999915), indicating it is the most effective model for this dataset.
+
 Key reasons for its performance:
-- Ability to handle both numerical and categorical features
-- Robustness against overfitting due to ensemble averaging
-- High interpretability via feature importance
+Ability to handle both numerical and categorical features
 
-**Final Decision:**  
-The **Random Forest Classifier** is selected as the final model for phishing URL detection.  
-It will be saved and integrated into a security pipeline for **real-time threat detection**.
+Robustness against overfitting due to ensemble averaging
 
----
+High interpretability via feature importance
 
-## 🛠 Tech Stack
-- **Language**: Python  
-- **Libraries**: scikit-learn, pandas, numpy, matplotlib, seaborn, scikit-learn  
-- **Tools**: Jupyter Notebook
----
+Final Decision:
+The Random Forest Classifier is selected as the final model for phishing URL detection. The trained model has been saved as random_forest_model.pkl for integration into a security pipeline for real-time threat detection.
 
-## ✅ Current Project Status
+🛠️ Tech Stack
+Language: Python
 
-- ✔ **Model Prediction completed**
+Libraries: pandas, numpy, scikit-learn, matplotlib, seaborn
 
----
+Tools: Jupyter Notebook
+
+✅ Current Project Status
+✔️ Model training and final evaluation completed
+
+✔️ Final model saved as random_forest_model.pkl
